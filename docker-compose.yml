@@ -1,0 +1,20 @@
+version: "3.1"
+
+secrets:
+  certbot_email:
+    file: ./secrets/certbot_email.txt
+
+services:
+
+    nginx:
+        build: ./nginx_container/
+        volumes:
+          - ./nginx_container/logs:/etc/nginx/logs/
+          - ./www:/www/
+        ports:
+          - "10080:80"
+        environment:
+          CERTBOT_EMAIL: /run/secrets/certbot_email
+        secrets:
+         - source: certbot_email
+        restart: unless-stopped

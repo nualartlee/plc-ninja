@@ -1,0 +1,31 @@
+server {
+	listen	80;
+	server_name plc.ninja;
+
+	# Pass this particular URL off to certbot, to authenticate HTTPS certificates
+	location '/.well-known/acme-challenge' {
+	  default_type "text/plain";
+	  proxy_pass http://localhost:1337;
+	}
+
+        # Static files
+	location / {
+	  root /www;
+	}
+}
+
+server {
+	listen      443 ssl;
+	server_name plc.ninja;
+	ssl_certificate     /etc/letsencrypt/live/plc.ninja/fullchain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/plc.ninja/privkey.pem;
+
+	charset     utf-8;
+
+	# max upload size
+	client_max_body_size 75M;
+
+	location / {
+	  root /www;
+	}
+}
