@@ -4,6 +4,11 @@ secrets:
   certbot_email:
     file: ./secrets/certbot_email.txt
 
+networks:
+  default:
+  nginx_main:
+    external: true
+
 services:
 
     nginx:
@@ -11,6 +16,10 @@ services:
         volumes:
           - ./nginx_container/logs:/etc/nginx/logs/
           - ./www:/www/
+        networks:
+          default:
+          nginx_main:
+            ipv4_address: 172.16.0.5
         environment:
           CERTBOT_EMAIL: /run/secrets/certbot_email
         secrets:
