@@ -29,9 +29,9 @@ echo
 previous=$(git log --format=%H | sed -n 2p)
 check_errs $? "Unable to determine previous git version hash"
 
-# Checkout previous version
-git checkout $previous
-check_errs $? "Unable to checkout previous version from repository"
+# Rollback previous version
+git reset $previous
+check_errs $? "Unable to git-reset previous version from repository"
 
 # Create a directory to store passwords
 if [ -e secrets ]
