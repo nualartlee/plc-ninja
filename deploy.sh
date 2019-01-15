@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 
-# Initial setup
+#
+# Project Deployment Script
+#
+# Pulls the latest version of the current from remote origin.
 # Creates docker containers, passwords, keys, etc
+#
+# The project should already be present under git with remote origin
+# set up before running this script
 
 # Import common functions
 source ./common.sh
@@ -9,7 +15,7 @@ source ./common.sh
 # Print header
 clear
 echo "====================================="
-echo "           Build Project"
+echo "           Deploy Project"
 echo
 
 # Check user is root
@@ -21,6 +27,10 @@ check_package pwgen
 check_package docker
 check_package docker-compose
 echo
+
+# Pull latest version from remote origin
+git pull
+check_errs $? "Unable to pull from remote repository"
 
 # Create a directory to store passwords
 if [ -e secrets ]
@@ -76,6 +86,6 @@ check_errs $? "Failed starting containers"
 sleep 5
 
 echo
-echo "Initial Setup Completed"
+echo "Deployment Completed"
 echo "Project is running"
 echo
