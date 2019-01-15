@@ -33,6 +33,10 @@ check_errs $? "Unable to determine previous git version hash"
 git reset $previous
 check_errs $? "Unable to git-reset previous version from repository"
 
+# Stash current changes
+git stash
+check_errs $? "Unable to stash changes in repository"
+
 # Create a directory to store passwords
 if [ -e secrets ]
 then
