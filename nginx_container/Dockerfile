@@ -8,3 +8,7 @@ COPY *.conf /etc/nginx/conf.d/
 # This is the default nginx configuration
 COPY default/nginx.conf /etc/nginx/nginx.conf
 
+# Updated scripts
+COPY entrypoint.sh /scripts/entrypoint.sh
+COPY run_certbot.sh /scripts/run_certbot.sh
+
