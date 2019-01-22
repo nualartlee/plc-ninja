@@ -9,6 +9,9 @@
 # The project should already be present under git with remote origin
 # set up before running this script
 
+# Work from script's directory
+cd "${0%/*}"
+
 # Import common functions
 source ./common.sh
 
