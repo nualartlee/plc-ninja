@@ -32,7 +32,7 @@ check_package docker-compose
 echo
 
 # Pull latest version from remote origin
-git pull
+sudo -u manager git pull
 check_errs $? "Unable to pull from remote repository"
 
 # Create a directory to store passwords

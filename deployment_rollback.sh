@@ -26,11 +26,11 @@ check_package docker-compose
 echo
 
 # Determine previous version git hash
-previous=$(git log --format=%H | sed -n 2p)
+previous=$(sudo -u manager git log --format=%H | sed -n 2p)
 check_errs $? "Unable to determine previous git version hash"
 
 # Rollback previous version
-git reset $previous
+sudo -u manager git reset $previous
 check_errs $? "Unable to git-reset previous version from repository"
 
 # Stash current changes
