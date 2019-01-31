@@ -47,11 +47,6 @@ fi
 chmod 660 secrets
 check_errs $? "Failed setting secret directory permissions"
 
-# Create passwords
-#create_password secrets/postgres_password.txt 27
-#create_password secrets/django_secret_key.txt 47
-#create_password secrets/django_admin_pass.txt 27
-
 # Get email address for LetsEncrypt certbot
 file=secrets/certbot_email.txt
 if [ -e $file ]
