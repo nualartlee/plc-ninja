@@ -34,7 +34,7 @@ sudo -u manager git reset $previous
 check_errs $? "Unable to git-reset previous version from repository"
 
 # Stash current changes
-git stash
+sudo -u manager git stash
 check_errs $? "Unable to stash changes in repository"
 
 # Create a directory to store passwords
