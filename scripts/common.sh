@@ -44,18 +44,3 @@ create_password () {
     chmod 664 $1
     check_errs $? "Failed setting password permissions"
 }
-
-
-# Git release pull
-# Param 1: branch to pull from (master branch if omitted)
-# Param 2: commit to pull (latest commit if omitted)
-git_update () {
-    # Get branch and commit
-    branch=$1
-    commit=$2
-    if [ -z "$branch" ]
-    then
-        branch=master
-    fi
-
-}
