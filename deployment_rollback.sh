@@ -12,10 +12,13 @@ cd "${0%/*}"
 # Import common functions
 source scripts/common.sh
 
+# Assume the project's name is the same as the containing directory
+projectname=${PWD##*/}
+
 # Print header
 clear
 echo "====================================="
-echo "      Revert To Previous Version"
+echo "      Revert $projectname"
 echo
 
 # Check user is root
@@ -24,7 +27,6 @@ check_errs $EUID "This script must be run as root"
 # Get the owner of the project
 projectowner=$(ls -ld $PWD | awk '{print $3}')
 
-<<<<<<< HEAD
 # Determine previous version git hash
 previous=$(sudo -u manager git log --format=%H | sed -n 2p)
 check_errs $? "Unable to determine previous git version hash"
@@ -35,7 +37,7 @@ check_errs $? "Unable to git-reset previous version from repository"
 
 # Stash current changes
 sudo -u manager git stash
-=======
+
 # Determine previous version sudo -u $projectowner git hash
 previous=$(sudo -u $projectowner git log --format=%H | sed -n 2p)
 check_errs $? "Unable to determine previous git version hash"
@@ -46,7 +48,6 @@ check_errs $? "Unable to git-reset previous version from repository"
 
 # Stash current changes
 sudo -u $projectowner git stash
->>>>>>> development
 check_errs $? "Unable to stash changes in repository"
 
 # Run any custom build script
