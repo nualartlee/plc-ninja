@@ -37,17 +37,12 @@ check_package docker-compose
 echo
 
 # Pull latest version from remote origin
-<<<<<<< HEAD
-sudo -u manager git pull
-=======
 sudo -u $projectowner git pull
->>>>>>> development
 check_errs $? "Unable to pull from remote repository"
 
 # Run any custom build script
 if [ -e scripts/build.sh ]
 then
-<<<<<<< HEAD
     echo "secrets directory already exists"
 else
     echo "Creating secrets directory"
@@ -62,12 +57,9 @@ file=secrets/certbot_email.txt
 if [ -e $file ]
 then
     echo "LetsEncrypt certbot administrator email already exists"
-=======
     echo "Running custom build script"
     scripts/build.sh
     check_errs $? "Custom build script failed"
-
->>>>>>> development
 else
     echo "No custom build scripts"
 fi
