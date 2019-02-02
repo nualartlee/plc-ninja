@@ -6,17 +6,19 @@
 # Pulls and deploys the previous version of the current branch from remote origin.
 #
 
-# Work from script's directory
-cd "${0%/*}"
+# Work from projects's directory
+cd "${0%/*}/.."
 
 # Import common functions
-source scripts/common.sh
+source deploy-scripts/common.sh
+
+# Assume the project's name is the same as the containing directory
+projectname=${PWD##*/}
 
 # Assume the project's name is the same as the containing directory
 projectname=${PWD##*/}
 
 # Print header
-clear
 echo "====================================="
 echo "      Revert $projectname"
 echo
@@ -83,7 +85,28 @@ check_errs $? "Failed starting containers"
 # Allow for startup
 sleep 5
 
+# Run any custom post_build script
+if [ -e scripts/post_build.sh ]
+then
+    echo "Running custom post_build script"
+    scripts/post_build.sh
+    check_errs $? "Custom post_build script failed"
+
+else
+    echo "No custom post_build scripts"
+fi
+
 echo
 echo "Rollback Completed"
-echo "Project is running"
+echo
+
+# Run tests
+echo "Starting tests..."
+deploy-scripts/deployment_test.sh
+check_errs $? "Test failed."
+
+# Completed successfully
+echo
+echo "Project Running"
+echo
 echo
